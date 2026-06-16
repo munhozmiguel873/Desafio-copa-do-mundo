@@ -1,0 +1,134 @@
+/* Reset básico para padronizar os navegadores */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #f4f7f6;
+  color: #333;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* Estilo para as mensagens de Status / Erro */
+.feedback {
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 0 auto 20px auto;
+  max-width: 600px;
+}
+
+.feedback.error {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #ffcdd2;
+}
+
+/* Container de Filtros */
+.filters-section {
+  max-width: 1200px;
+  margin: 0 auto 30px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  align-items: center;
+}
+
+#search-input {
+  width: 100%;
+  max-width: 400px;
+  padding: 12px 20px;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s;
+}
+
+#search-input:focus {
+  border-color: #004b87;
+}
+
+.group-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.filter-btn {
+  background-color: #e0e0e0;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  color: #333;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.filter-btn:hover {
+  background-color: #ccc;
+}
+
+.filter-btn.active {
+  background-color: #004b87;
+  color: white;
+}
+
+/* Grid para os Cards das Seleções */
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Estilo individual de cada Card */
+.team-card {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.team-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+}
+
+.team-card img {
+  width: 80px;
+  height: auto;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  border: 1px solid #ddd;
+  object-fit: cover;
+}
+
+.team-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+}
+
+.team-card .group-badge {
+  display: inline-block;
+  background-color: #004b87;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.85rem;
+  font-weight: bold;
+}

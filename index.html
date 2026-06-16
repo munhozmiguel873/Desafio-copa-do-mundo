@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Copa do Mundo 2026 - Seleções</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>🏆 Seleções da Copa 2026</h1>
+  </header>
+
+  <main>
+    <section class="filters-section" id="filters-section" style="display: none;">
+      <input type="text" id="search-input" placeholder="Buscar seleção por nome (ex: Brazil)..." autocomplete="off">
+      <div id="group-buttons" class="group-buttons">
+        </div>
+    </section>
+
+    <div id="feedback-message" class="feedback">Carregando seleções...</div>
+    
+    <div id="teams-container" class="grid-container"></div>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
