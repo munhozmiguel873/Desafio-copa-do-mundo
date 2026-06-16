@@ -1,4 +1,3 @@
-/* Reset básico para padronizar os navegadores */
 * {
   box-sizing: border-box;
   margin: 0;
@@ -14,10 +13,39 @@ body {
 
 header {
   text-align: center;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
 }
 
-/* Estilo para as mensagens de Status / Erro */
+/* ESTILO DAS ABAS DE NAVEGAÇÃO */
+.nav-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.tab-btn {
+  background-color: #fff;
+  border: 2px solid #004b87;
+  color: #004b87;
+  padding: 10px 24px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+  background-color: #e6f0fa;
+}
+
+.tab-btn.active {
+  background-color: #004b87;
+  color: #fff;
+}
+
+/* Mensagens de Status / Erro */
 .feedback {
   text-align: center;
   font-size: 1.2rem;
@@ -60,12 +88,24 @@ header {
 
 .group-buttons {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   gap: 10px;
-  justify-content: center;
+  width: 100%;
+  max-width: 1200px;       
+  justify-content: center; 
+  overflow-x: auto;
+  padding-bottom: 10px;
+
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.group-buttons::-webkit-scrollbar {
+  display: none;
 }
 
 .filter-btn {
+  flex-shrink: 0;
   background-color: #e0e0e0;
   border: none;
   padding: 8px 16px;
@@ -85,28 +125,34 @@ header {
   color: white;
 }
 
-/* Grid para os Cards das Seleções */
+/* Grid Principal */
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 20px;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* Estilo individual de cada Card */
-.team-card {
+/* Estilo do Card das Seleções e Estádios */
+.team-card,
+.stadium-card {
   background: white;
-  border-radius: 10px;
+  border-radius: 12px;
   padding: 20px;
   text-align: center;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
 }
 
-.team-card:hover {
+.team-card:hover,
+.stadium-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
 }
 
 .team-card img {
@@ -115,20 +161,48 @@ header {
   border-radius: 4px;
   margin-bottom: 15px;
   border: 1px solid #ddd;
-  object-fit: cover;
 }
 
-.team-card h3 {
-  font-size: 1.1rem;
+.team-card h3,
+.stadium-card h3 {
+  font-size: 1.15rem;
   margin-bottom: 10px;
+  color: #222;
 }
 
-.team-card .group-badge {
+.group-badge,
+.stadium-badge {
   display: inline-block;
   background-color: #004b87;
   color: white;
-  padding: 5px 10px;
+  padding: 6px 12px;
   border-radius: 15px;
   font-size: 0.85rem;
   font-weight: bold;
+  margin-top: auto;
+}
+
+/* Customização para o card de estádios */
+.stadium-card p {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.stadium-card .capacity {
+  font-weight: bold;
+  color: #007a33;
+  margin-top: 5px;
+}
+
+.stadium-badge {
+  background-color: #333;
+}
+
+@media (max-width: 900px) {
+  .group-buttons {
+    justify-content: flex-start;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }

@@ -27,5 +27,10 @@ Abaixo estão as interações principais, as sugestões da IA e as decisões tom
 - **O que a IA sugeriu:** A IA unificou os scripts e estilos em três blocos de código completos e limpos (`index.html`, `style.css` e `app.js`), garantindo que a seção de filtros ficasse oculta (`display: none`) até que os dados da API fossem carregados com sucesso.
 - **Nossa decisão:** Utilizamos essa versão consolidada como o núcleo (core) do nosso projeto e base para os próximos commits no GitHub.
 
+## 📝 Interação 5: Expansão de Escopo (Inclusão de Estádios e Sistema de Abas)
+- **O que nós perguntamos (Prompt):** *"como faço pra colocar os estadios"*
+- **O que a IA sugeriu:** A IA identificou o endpoint correto da API (`/get/stadiums`), analisou a estrutura dos objetos de estádio (contendo capacidade, cidade e país) e sugeriu a criação de um sistema de Abas Navegáveis no Front-end utilizando manipulação de estado (`abaAtual`). Ela reestruturou o JavaScript para usar `Promise.all`, baixando dados das seleções e dos estádios simultaneamente.
+- **Nossa decisão:** Implementamos o sistema de abas por ser extremamente ergonômico. Reaproveitamos o mesmo campo de busca de texto, adaptando-o dinamicamente: na aba de seleções ele filtra os países; na aba de estádios ele filtra por nome do estádio, cidade ou país sede (EUA, México e Canadá).
+
 ## 🎯 Conclusão sobre o uso da IA
 A IA foi utilizada como uma assistente de desenvolvimento (Pair Programming). Em vez de pedir para ela "fazer o projeto inteiro de olhos fechados", fomos iterando passo a passo: primeiro a conexão, depois o layout, e por fim as lógicas de filtro. Isso garantiu que o código final fosse compreendido por toda a equipe e respeitasse estritamente a regra de usar **HTML, CSS e JS puros**. A IA ajudou a acelerar o processo, mas as decisões finais e a estruturação do projeto foram feitas por nós, garantindo que o resultado fosse autêntico e alinhado com as regras do desafio.
