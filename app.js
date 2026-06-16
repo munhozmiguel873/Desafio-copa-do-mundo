@@ -1,6 +1,7 @@
 const TOKEN = "SEU_TOKEN_AQUI";
 const URL_TEAMS = "https://worldcup26.ir/get/teams";
 const URL_STADIUMS = "https://worldcup26.ir/get/stadiums";
+const URL_GROUPS = "https://worldcup26.ir/get/groups";
 
 // Elementos do DOM
 const mainContainer = document.getElementById("main-container");
@@ -15,6 +16,7 @@ const tabStadiums = document.getElementById("tab-stadiums");
 // Controle de Estado da Aplicação
 let todasAsSelecoes = [];
 let todosOsEstadios = [];
+let todosOsGrupos = []; // RESOLVIDO: Declarado globalmente aqui no topo
 let abaAtual = "teams"; // Pode ser "teams" ou "stadiums"
 let grupoSelecionado = "Todos";
 let termoDeBusca = "";
@@ -22,28 +24,32 @@ let termoDeBusca = "";
 // 1. Carrega todos os dados necessários da Copa
 async function carregarDadosDaCopa() {
   try {
-    // Faz o fetch das duas APIs ao mesmo tempo economizando tempo
-    const [resTeams, resStadiums] = await Promise.all([
+    // Faz o fetch das três APIs ao mesmo tempo economizando tempo e requisições
+    const [resTeams, resStadiums, resGroups] = await Promise.all([
       fetch(URL_TEAMS, { headers: { "Authorization": `Bearer ${TOKEN}` } }),
-      fetch(URL_STADIUMS, { headers: { "Authorization": `Bearer ${TOKEN}` } })
+      fetch(URL_STADIUMS, { headers: { "Authorization": `Bearer ${TOKEN}` } }),
+      fetch(URL_GROUPS, { headers: { "Authorization": `Bearer ${TOKEN}` } })
     ]);
 
-    if (!resTeams.ok || !resStadiums.ok) {
+    if (!resTeams.ok || !resStadiums.ok || !resGroups.ok) {
       throw new Error("Erro ao obter os dados da API. Verifique o Token ou o servidor.");
     }
 
     const dataTeams = await resTeams.json();
     const dataStadiums = await resStadiums.json();
+    const dataGroups = await resGroups.json();
 
     todasAsSelecoes = dataTeams.teams;
     // Aceita se vier encapsulado ou direto em formato de Array
     todosOsEstadios = dataStadiums.stadiums || dataStadiums;
+    todosOsGrupos = dataGroups.groups || dataGroups; // RESOLVIDO: Salva na variável global correta
 
     // Remove tela de loading e libera interface
     feedbackMessage.style.display = "none";
     filtersSection.style.display = "flex";
 
-    gerarBotoesDeGrupo(todasAsSelecoes);
+    // RESOLVIDO: Agora passa a lista oficial de grupos vinda da API
+    gerarBotoesDeGrupo(todosOsGrupos);
     renderizarTela();
 
   } catch (error) {
@@ -123,15 +129,21 @@ function desenharEstadios(lista) {
   });
 }
 
-// 4. Criação dinâmica do carrossel de botões de grupos
-function gerarBotoesDeGrupo(teamsArray) {
-  const grupos = [...new Set(teamsArray.map(t => t.groups))].sort();
+// 4. Criação dinâmica do carrossel de botões usando a API de Grupos
+function gerarBotoesDeGrupo(gruposArray) {
+  // Limpa o container e coloca o botão inicial "Todos"
   groupButtonsContainer.innerHTML = `<button class="filter-btn active" data-group="Todos">Todos</button>`;
 
-  grupos.forEach(grupo => {
-    groupButtonsContainer.innerHTML += `<button class="filter-btn" data-group="${grupo}">Grupo ${grupo}</button>`;
+  gruposArray.forEach(g => {
+    // RESOLVIDO: Tratamento caso a API retorne um array de objetos ou array de strings direto
+    const nomeGrupo = typeof g === "object" ? (g.name || g.group || g.groups) : g;
+
+    if (nomeGrupo) {
+      groupButtonsContainer.innerHTML += `<button class="filter-btn" data-group="${nomeGrupo}">Grupo ${nomeGrupo}</button>`;
+    }
   });
 
+  // Reconfigura os cliques em cada botão gerado
   const botoes = groupButtonsContainer.querySelectorAll(".filter-btn");
   botoes.forEach(botao => {
     botao.addEventListener("click", (e) => {
